@@ -6,8 +6,8 @@ class NoteBook:
         self.datetimestr = str(datetime.now().strftime("%d%m%Y%H%M%S"))
         self.book = {}
 
-    def __str__(self, text: str) -> str:
-        return f"{self.__class__.book}({self.text})"
+    def __str__(self) -> str:
+        return self.showall()
     
     def add(self, text: str, tag=""):
         self.text = text
@@ -89,15 +89,15 @@ class NoteBook:
         return rezult
         
 
-#text = NoteBook()
+text = NoteBook()
 #text.file_open()
 #text.delete("27012023200840")
-#text.add("ergwbfgnfggfsnsfgnsftrnstrnn. ", "as")
+text.add("ergwbfgnfggfsnsfgnsftrnstrnn. ", "as")
 #text.file_write()
 #text.file_open()
 #text.edit("27012023203934", "Neu text", "Neu_tag")
 
-#print(text.sortrag())
+print(text)
 
 
 #text.file_write()
