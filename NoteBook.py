@@ -13,8 +13,11 @@ class NoteBook:
         self.text = text
         self.book[self.datetimestr] = [text, str(datetime.now().strftime("%d.%m.%Y %H:%M:%S")), tag]
 
-    def delete(self, text: str):
-        self.book.pop(text, None)
+    def delete(self, id: str):
+        if self.book.__contains__(id):
+            self.book.pop(id)
+        else:
+            return print("ID not found")
 
     def clear(self):
         self.book.clear()
@@ -87,17 +90,62 @@ class NoteBook:
                         if id == n:
                             rezult += f"Tag: {record[2]}, ID: {id}, Date: {record[1]}\nText: {record[0]} \n\n"
         return rezult
-        
+
+
 
 text = NoteBook()
-#text.file_open()
-#text.delete("27012023200840")
-text.add("ergwbfgnfggfsnsfgnsftrnstrnn. ", "as")
-#text.file_write()
-#text.file_open()
-#text.edit("27012023203934", "Neu text", "Neu_tag")
+text.file_open()
 
-print(text)
+while True:
+    command_line = input('Input comand: ').split()
+    command = command_line[0]
+    if len(command_line) == 1:
 
+        if command == "add":
+            note = input('Input text for the note:\n')
+            tag = input('Input tag for the note. Not necessarily:\n')
+            text.add(note, tag)
 
-#text.file_write()
+        if command == "delete":
+            id = input('Input ID for delete:\n')
+            text.delete(id)
+        
+        if command == "edit":
+            id = input('Input ID for edit:\n')
+            note = input('Input NEU text for the note:\n')
+            tag = input('Input NEU tag for the note. Not necessarily:\n')
+            text.edit(id, note, tag)
+
+        if command == "showall":
+            print(text.showall())
+
+        if command == "exit":
+            text.file_write()
+            print("Godbay")
+            break
+        
+        if command == "save":
+            text.file_write()
+            print("The notebook is saved")
+        
+        if command == "sorted_date":
+            print(text.sortdate())
+
+        if command == "sorted_tag":
+            print(text.sortrag())
+
+        if command == "help":
+            print("""
+            'add' - to add a record\n
+            'edit' - editing a record by ID\n
+            'delete' - delete a record by ID\n
+            'showall' - output of all records\n
+            'save' - save changes\n
+            'sorted_date' - sorting by date from newer records and output\n
+            'sorted_tag' - sorting tags alphabetically and output\n
+            'exit' - exit the program.
+            """)
+
+    else:
+        print("Plis enter only comand. Command 'help' to view a list of commands")
+
